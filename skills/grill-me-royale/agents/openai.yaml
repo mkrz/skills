@@ -1,0 +1,5 @@
+interface:
+  display_name: "Grill Me Royale"
+  short_description: "Shrinking question rounds down to two finishers"
+policy:
+  allow_implicit_invocation: false

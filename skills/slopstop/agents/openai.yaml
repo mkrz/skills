@@ -1,0 +1,3 @@
+interface:
+  display_name: "Slopstop"
+  short_description: "Rules that keep AI slop out of UI"

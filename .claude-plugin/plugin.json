@@ -1,0 +1,13 @@
+{
+  "name": "mkrz-skills",
+  "version": "1.0.0",
+  "description": "Michael Kreuzmayr's agent skills: blocker reviews, task implementation, UI rules and interview drills.",
+  "author": {
+    "name": "Michael Kreuzmayr",
+    "url": "https://github.com/mkrz"
+  },
+  "homepage": "https://github.com/mkrz/skills",
+  "repository": "https://github.com/mkrz/skills",
+  "license": "MIT",
+  "keywords": ["skills", "code-review", "ui", "grilling"]
+}

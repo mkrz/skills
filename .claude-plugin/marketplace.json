@@ -1,0 +1,17 @@
+{
+  "name": "mkrz",
+  "owner": {
+    "name": "Michael Kreuzmayr",
+    "url": "https://github.com/mkrz"
+  },
+  "description": "Michael Kreuzmayr's agent skills as an installable plugin.",
+  "plugins": [
+    {
+      "name": "mkrz-skills",
+      "source": "./",
+      "description": "Blocker reviews, task implementation, UI rules and interview drills.",
+      "category": "engineering",
+      "keywords": ["skills", "code-review", "ui", "grilling"]
+    }
+  ]
+}

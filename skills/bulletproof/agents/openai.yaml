@@ -1,0 +1,5 @@
+interface:
+  display_name: "Bulletproof"
+  short_description: "Check this thread's work for ship blockers"
+policy:
+  allow_implicit_invocation: false

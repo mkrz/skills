@@ -1,0 +1,3 @@
+interface:
+  display_name: 'Easy Fix'
+  short_description: 'Fix findings with the smallest change in the intended way'

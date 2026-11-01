@@ -1,0 +1,5 @@
+interface:
+  display_name: 'Bulletproof'
+  short_description: 'Review loop with three providers until no blocker is open'
+policy:
+  allow_implicit_invocation: false

@@ -1,0 +1,3 @@
+interface:
+  display_name: 'Writing Issues'
+  short_description: 'Issues that describe the problem without proposing a fix'

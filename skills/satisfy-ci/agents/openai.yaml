@@ -1,0 +1,5 @@
+interface:
+  display_name: 'Satisfy CI'
+  short_description: 'Verify and react to every bot comment and CI failure in a PR'
+policy:
+  allow_implicit_invocation: false

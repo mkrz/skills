@@ -1,0 +1,3 @@
+interface:
+  display_name: 'Suggest'
+  short_description: 'Challenge an idea and propose a better fit for the goal'

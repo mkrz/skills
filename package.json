@@ -1,0 +1,16 @@
+{
+  "name": "@mkrz/skills",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "format": "oxfmt .",
+    "format:check": "oxfmt --check .",
+    "lint": "markdownlint-cli2",
+    "verify": "pnpm run format:check && pnpm run lint"
+  },
+  "devDependencies": {
+    "markdownlint-cli2": "0.24.0",
+    "oxfmt": "0.75.0"
+  },
+  "packageManager": "pnpm@11.20.0"
+}

@@ -1,7 +1,6 @@
 ---
 name: satisfy-ci
-description: Verify and react to every bot's comment in a pull request.
-disable-model-invocation: true
+description: Verify and react to every bot's comment in a pull request. Use when the user wants to satisfy the CI of a pull request.
 ---
 
 # Satisfy CI

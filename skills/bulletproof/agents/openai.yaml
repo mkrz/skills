@@ -1,3 +1,3 @@
 interface:
   display_name: 'Bulletproof'
-  short_description: 'Review loop with different providers until no blocker is open'
+  short_description: 'Consolidate with models from different providers'

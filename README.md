@@ -20,8 +20,8 @@ The agent loads these when the task matches. You can also call them by name.
 | ------------------ | -------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
 | `go-all-in`        | you say 'go all in'                          | Works on your tasks until the PR is merged: commits, reviews, opens the PR, satisfies CI and merges. |
 | `satisfy-ci`       | you want to satisfy the CI                   | Verifies every bot comment and CI failure in a PR, fixes the real ones and dismisses the rest.       |
-| `bulletproof`      | you say "bulletproof it"                     | Reviews the changes with models from different providers in a loop and fixes real blockers.          |
-| `consolidate`      | you want the current changes reviewed        | One review by a subagent, with the findings fixed in the main thread.                                |
+| `bulletproof`      | you say "bulletproof it"                     | Runs `consolidate` with models from different providers for up to 5 rounds.                          |
+| `consolidate`      | you want the current changes reviewed        | Reviews the changes in up to 3 rounds and fixes the real findings in the main thread.                |
 | `easy-fix`         | fixing findings from a review, bots or CI    | Fixes with the smallest change in the intended way and commits separately.                           |
 | `commit`           | creating a commit                            | Single line conventional commits that say why, not what.                                             |
 | `pr-it-ty`         | creating a PR                                | A conventional commit title and a description of the problem and solution.                           |

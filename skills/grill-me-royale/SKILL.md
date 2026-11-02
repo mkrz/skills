@@ -10,10 +10,11 @@ The last round has two **finisher** questions, then the grilling session is comp
 
 In each round, ask the questions as if it were the last round to reach a shared understanding.
 Ask about goals, scope and the big forks first. Only dig into one branch once nothing broad is left open.
-Use open questions and don't recommend anything. Look up facts yourself or send a subagent.
+Use open questions and only give suggestions or recommendations if the user asked for it.
+Look up facts yourself or send a subagent.
 
 If the user brings up additional topics in a round, you may add one bonus question per additional topic in the next round.
-If the suggest skill was invoked between rounds, you may add one suggestion item per suggestion in the next round.
+If the `suggest` skill was invoked between rounds, you may add one suggestion item per suggestion in the next round.
 
 If the last round brought up either a suggestion or a bonus, you are allowed to go into one more bonus round.
 

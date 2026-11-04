@@ -8,9 +8,10 @@ description: Work on tasks until they are merged. Use this skill if the user exp
 Work on the tasks the user gave you on your own until the PR is merged.
 
 When you work on something and hit a milestone or finish a task, commit it. Each commit holds one concern.
-Use the `consolidate` skill to verify bigger tasks.
+While working on tasks, especially on requests with an extensive scope, regularly use the `consolidate` skill to review milestones or `bulletproof` to verify and harden important interfaces and areas where security matters.
+If the user gave you one granular task, you should use either `consolidate` or `bulletproof`, depending on the area and scope.
 
-When all tasks are done, run `bulletproof` locally on everything you made. Then create the PR using the `pr-it-ty` skill and push to it.
+After all tasks and reviews are done, create a new PR using the `pr-it-ty` skill and push to it.
 
 Wait for CI and all bot comments to come in, then run `satisfy-ci` until every thread is resolved or dismissed.
 

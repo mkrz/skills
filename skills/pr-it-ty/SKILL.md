@@ -5,9 +5,10 @@ description: Use when creating a pull request.
 
 # PR it, ty
 
-Write the PR title as a conventional commit, <type>(<scope>): <short-message>, where the message says why it changed and what it improves, not what changed.
+Write the PR title as a conventional commit, <type>(<scope>): <short-message>. Follow the `commit` skill for the type and the message.
 
 In the PR description briefly describe the problem and why this PR exists, then follow with an explanation of the solution in simple sentences.
+Only write a problem you have evidence for. If the user didn't say why, describe how it worked before and leave the cause out. Never make up a why.
 Never expose any secrets, private details or absolute local paths.
 
 ```md

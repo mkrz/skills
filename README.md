@@ -23,7 +23,7 @@ The agent loads these when the task matches. You can also call them by name.
 | `bulletproof`      | you say "bulletproof it"                     | Runs `consolidate` with models from different providers for up to 5 rounds.                          |
 | `consolidate`      | you want the current changes reviewed        | Reviews the changes in up to 3 rounds and fixes the real findings in the main thread.                |
 | `easy-fix`         | fixing findings from a review, bots or CI    | Verifies the finding, then fixes its cause with the easiest correct change.                          |
-| `commit`           | creating a commit                            | Single line conventional commits that say why, not what.                                             |
+| `commit`           | creating a commit                            | Single line conventional commits that say why, or precisely what when the why is unknown.            |
 | `pr-it-ty`         | creating a PR                                | A conventional commit title and a description of the problem and solution.                           |
 | `writing-comments` | leaving a comment                            | Leads with a brief conclusion, then explains it in simple sentences.                                 |
 | `writing-issues`   | writing an issue                             | Describes the problem and the facts to watch out for, without proposing a fix.                       |

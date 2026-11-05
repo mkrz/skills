@@ -37,6 +37,7 @@ Some skills call others. Install the ones they need too:
 - `bulletproof` uses `consolidate`.
 - `consolidate` uses `easy-fix`.
 - `satisfy-ci` uses `easy-fix` and `writing-comments`.
+- `pr-it-ty` uses `commit`.
 - `grill-me-royale` adds suggestion questions when you use `suggest` between rounds.
 
 ## Get Them Now

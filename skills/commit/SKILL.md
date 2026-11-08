@@ -12,4 +12,5 @@ The message specifically tells why the commit was made and what it improves, if 
 Evidence is what the user said, an issue, a failing test or a bug you reproduced. Never make up a why.
 Without evidence, say precisely what changed instead.
 Never use vague words like "improve", "update" or "enhance" in the message.
+Keep the message under 150 characters.
 Never write commit bodies.

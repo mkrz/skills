@@ -7,8 +7,8 @@ description: Thorough code review by multiple subagents from different providers
 
 Default Models:
 
-- GPT 6.1 Sol at xhigh
-- Claude Opus 5.5 at xhigh
+- GPT 6.1 Sol at high
+- Claude Opus 5.5 at high
 
 Run the `consolidate` skill with one subagent per model. Use the default models, if the user does not name specific models.
 You may go up to 5 rounds, if it's a big diff or touches security.

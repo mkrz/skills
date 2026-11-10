@@ -1,3 +1,3 @@
 interface:
   display_name: 'Writing Code'
-  short_description: 'Only comments for constraints the code cannot express'
+  short_description: 'Rules for comments, destructuring and route queries'

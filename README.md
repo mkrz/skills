@@ -27,7 +27,7 @@ The agent loads these when the task matches. You can also call them by name.
 | `pr-it-ty`         | creating a PR                                | A conventional commit title and a description of the problem and solution.                           |
 | `writing-comments` | leaving a comment                            | Leads with a brief conclusion, then explains it in simple sentences.                                 |
 | `writing-issues`   | writing an issue                             | Describes the problem and the facts to watch out for, without proposing a fix.                       |
-| `writing-code`     | writing code                                 | No explaining comments, only constraints the code cannot express.                                    |
+| `writing-code`     | writing code                                 | No explaining comments, sparse destructuring and route queries started in the loader.                |
 | `suggest`          | you say "propose", "suggest" or "suggestion" | Challenges your idea and proposes a better fit for your goal.                                        |
 | `slopstop`         | building, changing or reviewing a UI         | Keeps AI slop out of UI and checks every UI change in a browser.                                     |
 

@@ -1,3 +1,3 @@
 interface:
   display_name: 'Go All-In'
-  short_description: 'Implement, verify, open a PR, satisfy CI and merge on your own'
+  short_description: 'Implement, verify, open a PR and satisfy CI on your own'

@@ -18,7 +18,7 @@ The agent loads these when the task matches. You can also call them by name.
 
 | Skill              | Fires when                                   | What it does                                                                                         |
 | ------------------ | -------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
-| `go-all-in`        | you say 'go all in'                          | Works on your tasks until the PR is merged: commits, reviews, opens the PR, satisfies CI and merges. |
+| `go-all-in`        | you say 'go all in'                          | Works on your tasks until the PR is ready to merge: commits, reviews, opens the PR and satisfies CI. |
 | `satisfy-ci`       | you want to satisfy the CI                   | Verifies every bot comment and CI failure in a PR, fixes the real ones and dismisses the rest.       |
 | `bulletproof`      | you say "bulletproof it"                     | Runs `consolidate` with models from different providers for up to 5 rounds.                          |
 | `consolidate`      | you want the current changes reviewed        | Reviews the changes in up to 3 rounds and fixes the real findings in the main thread.                |

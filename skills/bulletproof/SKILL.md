@@ -8,10 +8,12 @@ description: Thorough code review by multiple subagents from different providers
 Default Models:
 
 - GPT 6.1 Sol at high
-- Claude Opus 5.5 at high
+- Claude Fable 5.2 at high
 
 Run the `consolidate` skill with one subagent per model. Use the default models, if the user does not name specific models.
 You may go up to 5 rounds, if it's a big diff or touches security.
 If you can't reach any of the providers, stop and say so; don't swap in a random model.
+
+At the end of each round briefly report the round's scores.
 
 At the end, report the bar, each round's scores, what changed, what you rejected and the follow-up list.

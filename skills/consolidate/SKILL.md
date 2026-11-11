@@ -24,7 +24,7 @@ Ask it to end with "APPROVE" when the change meets the bar, otherwise "CHANGES".
 
 For a large diff, tell it to split the diff into areas and check each one by running the old and new code on the same inputs, not just by reading.
 
-Give it a file of settled decisions: questions you or the user already decided, such as rules the repo's linter enforces on purpose. Add every finding you reject for a lasting reason to that file. Reviewers must not raise a settled decision again.
+Give it a file of settled decisions: questions you or the user already decided. Add every finding you reject for a lasting reason to that file. Reviewers must not raise a settled decision again.
 
 Tell it the safety rules of the machine: no real services or `.env` files, fakes for every external command, and scratch files in its own new directory, never a shared one.
 
@@ -45,6 +45,8 @@ List every finding so far, one line each with its status as a plain fact (e.g. "
 Ask the reviewers to check that each fix closes its finding without a new regression.
 Point them specifically at files no one has read and areas that no one has looked at yet. Everywhere else only new findings that break the bar count.
 Do not tell subagents which round it is. Always give them the findings so far and the settled decisions.
+
+At the end of each round briefly report the round's score.
 
 ## Stop Condition
 

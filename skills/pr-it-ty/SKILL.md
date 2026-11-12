@@ -1,6 +1,6 @@
 ---
 name: pr-it-ty
-description: Use when creating a pull request.
+description: Use whenever working with pull requests, such as creating one or pushing to one.
 ---
 
 # PR it, ty
@@ -23,3 +23,6 @@ Never expose any secrets, private details or absolute local paths.
 > [!NOTE]
 > 🤖 **PR created by <model-name>**
 ```
+
+After every push to a branch with an open PR, compare the title and the description with the whole diff of the PR.
+Update them when they no longer match. Rewrite the description so it describes the PR as it is now, never append a list of what each push changed.

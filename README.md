@@ -20,8 +20,8 @@ The agent loads these when the task matches. You can also call them by name.
 | ------------------ | -------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
 | `go-all-in`        | you say 'go all in'                          | Works on your tasks until the PR is ready to merge: commits, reviews, opens the PR and satisfies CI. |
 | `satisfy-ci`       | you want to satisfy the CI                   | Verifies every bot comment and CI failure in a PR, fixes the real ones and dismisses the rest.       |
-| `bulletproof`      | you say "bulletproof it"                     | Runs `consolidate` with models from different providers for up to 5 rounds.                          |
-| `consolidate`      | you want the current changes reviewed        | Reviews the changes in up to 3 rounds and fixes the real findings in the main thread.                |
+| `bulletproof`      | you say "bulletproof it"                     | Reviews security work, big features or a complete app by area, with two providers per area.          |
+| `consolidate`      | you say "consolidate it" or want a review    | Reviews the changes in up to 3 rounds and fixes the real findings in the main thread.                |
 | `easy-fix`         | fixing findings from a review, bots or CI    | Verifies the finding, then fixes its cause with the easiest correct change.                          |
 | `commit`           | creating a commit                            | Single line conventional commits that say why, or precisely what when the why is unknown.            |
 | `pr-it-ty`         | working with PRs                             | A conventional commit title and a problem and solution description, updated on every push.           |
@@ -34,7 +34,7 @@ The agent loads these when the task matches. You can also call them by name.
 Some skills call others. Install the ones they need too:
 
 - `go-all-in` uses `consolidate`, `bulletproof`, `pr-it-ty` and `satisfy-ci`.
-- `bulletproof` uses `consolidate`.
+- `bulletproof` uses `easy-fix`.
 - `consolidate` uses `easy-fix`.
 - `satisfy-ci` uses `easy-fix` and `writing-comments`.
 - `pr-it-ty` uses `commit`.

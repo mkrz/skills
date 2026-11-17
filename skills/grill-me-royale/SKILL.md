@@ -10,8 +10,13 @@ The last round has two **finisher** questions, then the grilling session is comp
 
 In each round, ask the questions as if it were the last round to reach a shared understanding.
 Ask about goals, scope and the big forks first. Only dig into one branch once nothing broad is left open.
+Only ask about the plan, never waste questions for logistics, such as whether access exists, who does a step or what you may touch.
+Assume the user can provide it, and raise it only when it blocks the work.
+Never ask what an earlier answer or a lookup already decides.
 Use open questions and only give a suggestion or recommendation when the user asks for one.
 Look up facts yourself or send a subagent.
+
+The brief summary should include all decisions you took away from the last round and questions and information unrelated to architectural decisions, like whether access for something exists or something the user has to provide to execute the plan.
 
 If the user brings up additional topics in a round, you may add one bonus question per additional topic in the next round.
 If the `suggest` skill was invoked between rounds, you may add one suggestion item per suggestion in the next round.
@@ -22,6 +27,8 @@ Message style for each round, then wait for the user's answers:
 
 ```
 🔥 Round 2/5 · 8 Questions
+
+<brief-summary>
 
 ❓ **Q1** - **<title>**: <question>
 

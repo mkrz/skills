@@ -5,12 +5,7 @@ description: All-in review split by area, with reviewers from different provider
 
 # Bulletproof
 
-Default Models:
-
-- GPT 6.1 Sol at high
-- Claude Fable 5.2 at high
-
-Use the default models, if the user does not name specific models.
+Use the review models in `BASE.md`, if the user does not name specific models.
 If you can't reach any of the providers, stop and say so; don't swap in a random model.
 If the branch has no diff against its base, ask the user what to review.
 

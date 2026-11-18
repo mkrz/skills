@@ -16,4 +16,4 @@ Screenshots and videos help as well, when you have a way to upload them.
 
 If posting a comment is denied, tell the user once what you wanted to post and move on.
 
-Resolve or dismiss all threads. Write comments using the `writing-comments` skill.
+Resolve or dismiss all threads.

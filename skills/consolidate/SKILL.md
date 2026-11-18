@@ -5,7 +5,7 @@ description: Code review by a subagent in rounds, with the findings fixed in the
 
 # Consolidate
 
-Review the current changes with a subagent. Use GPT 6.1 Sol at high, if the user does not name a specific model. If unavailable, use the latest flagship model of another provider with high or xhigh effort.
+Review the current changes with a subagent. Use the first of the review models in `BASE.md`, if the user does not name a specific model. If unavailable, use the latest flagship model of another provider with high or xhigh effort.
 If the branch has no diff against its base, ask the user what to review.
 
 ## The Brief

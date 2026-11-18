@@ -102,11 +102,20 @@ for (const name of names) {
     continue;
   }
 
-  const yaml = object(read(yamlPath));
+  const yamlText = read(yamlPath);
+  const yaml = object(yamlText);
 
   if (yaml === null) {
     errors.push(`${name}: agents/openai.yaml is not valid YAML`);
     continue;
+  }
+
+  checkNamedSkills(`${name}/agents/openai.yaml`, yamlText);
+
+  if (modelName.test(yamlText)) {
+    errors.push(
+      `${name}: agents/openai.yaml names a model, move it to BASE.md`,
+    );
   }
 
   if (

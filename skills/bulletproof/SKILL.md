@@ -115,3 +115,4 @@ When every area is done:
 
 At the end of each round briefly report each area's reviewers, score and verdict in a table.
 At the end, report the bar, each area's scores, what changed, what you rejected and the follow-up list.
+Also list every cause that came up in two rounds or two areas, so the user can run the `never-again` skill on it.

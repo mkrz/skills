@@ -59,3 +59,4 @@ If the last round produced fixes, review just those commits once more, even at t
 If you hit the round limit, or a disagreement is still open after two rounds, show both sides and let the user decide. Hitting the limit doesn't count as approval.
 
 At the end, report the bar, each round's scores, what changed, what you rejected and the follow-up list.
+Also list every cause that came up in two rounds, so the user can run the `never-again` skill on it.

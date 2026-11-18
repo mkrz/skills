@@ -19,3 +19,5 @@ Screenshots and videos help as well, when you have a way to upload them.
 If posting a comment is denied, tell the user once what you wanted to post and move on.
 
 Resolve or dismiss all threads.
+
+At the end, list every cause that bots raised twice, so the user can run the `never-again` skill on it.

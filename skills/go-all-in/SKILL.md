@@ -27,3 +27,5 @@ Never merge the PR. You are done when all of this is true:
 - Nothing is left open the user has to confirm.
 
 Otherwise stop and tell the user what is left.
+
+In the final report, list every cause that came up twice, so the user can run the `never-again` skill on it.

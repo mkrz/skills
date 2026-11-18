@@ -2,6 +2,8 @@ import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import { parse } from 'yaml';
+
 const root = fileURLToPath(new URL('..', import.meta.url));
 const skillsDir = join(root, 'skills');
 const errors = [];
@@ -16,34 +18,28 @@ const names = readdirSync(skillsDir, { withFileTypes: true })
 
 const read = (path) => readFileSync(path, 'utf8').replaceAll('\r\n', '\n');
 
-const unquote = (value) => {
-  const trimmed = value.trim();
-  const quoted = /^'(.*)'$/.exec(trimmed) ?? /^"(.*)"$/.exec(trimmed);
-
-  return quoted === null ? trimmed : quoted[1].trim();
-};
-
+// The YAML between the first two `---` lines, or null without them.
 const frontmatter = (text) => {
   const match = /^---\n([\s\S]*?)\n---\n/.exec(text);
-  if (match === null) return null;
 
-  return Object.fromEntries(
-    match[1]
-      .split('\n')
-      .map((line) => /^([a-z-]+):(.*)$/.exec(line))
-      .filter((field) => field !== null)
-      .map((field) => [field[1], unquote(field[2])]),
-  );
+  return match === null ? null : object(match[1]);
 };
 
-// A YAML field on its own line, so a comment that mentions it doesn't count.
-const yamlField = (yaml, key) => {
-  const match = new RegExp(`^\\s*${key}:(.*)$`, 'm').exec(yaml);
+const object = (yaml) => {
+  try {
+    const value = parse(yaml);
 
-  return match === null ? null : unquote(match[1].replace(/\s#.*$/, ''));
+    return typeof value === 'object' && value !== null ? value : {};
+  } catch {
+    return null;
+  }
 };
+
+const filled = (value) => typeof value === 'string' && value.trim() !== '';
 
 // A backticked name before "skill", or any hyphenated backticked name.
+// A missing skill sends an agent into a dead end, so a hyphenated name that
+// is not a skill has to be listed in `notSkills`.
 const namedSkills = (text) => [
   ...new Set(
     [
@@ -61,7 +57,9 @@ const modelName = /\b(gpt|claude|gemini|grok)(?:[ -][a-z]+){0,2}[ -]\d/i;
 const checkNamedSkills = (label, text) => {
   for (const other of namedSkills(text)) {
     if (!names.includes(other)) {
-      errors.push(`${label}: names \`${other}\`, which is not a skill`);
+      errors.push(
+        `${label}: names \`${other}\`, which is not a skill. Fix the name, or add it to notSkills in scripts/check-skills.mjs if it isn't meant as one`,
+      );
     }
   }
 };
@@ -79,7 +77,7 @@ for (const name of names) {
   const fields = frontmatter(text);
 
   if (fields === null) {
-    errors.push(`${name}: SKILL.md has no frontmatter`);
+    errors.push(`${name}: SKILL.md has no valid YAML frontmatter`);
     continue;
   }
 
@@ -89,7 +87,7 @@ for (const name of names) {
     );
   }
 
-  if (!fields.description) {
+  if (!filled(fields.description)) {
     errors.push(`${name}: add a description that says when the skill fires`);
   }
 
@@ -104,19 +102,24 @@ for (const name of names) {
     continue;
   }
 
-  const yaml = read(yamlPath);
+  const yaml = object(read(yamlPath));
+
+  if (yaml === null) {
+    errors.push(`${name}: agents/openai.yaml is not valid YAML`);
+    continue;
+  }
 
   if (
-    !yamlField(yaml, 'display_name') ||
-    !yamlField(yaml, 'short_description')
+    !filled(yaml.interface?.display_name) ||
+    !filled(yaml.interface?.short_description)
   ) {
     errors.push(
       `${name}: agents/openai.yaml needs a display_name and a short_description`,
     );
   }
 
-  const typedOnly = fields['disable-model-invocation'] === 'true';
-  const implicitOff = yamlField(yaml, 'allow_implicit_invocation') === 'false';
+  const typedOnly = fields['disable-model-invocation'] === true;
+  const implicitOff = yaml.policy?.allow_implicit_invocation === false;
 
   if (typedOnly !== implicitOff) {
     errors.push(

@@ -11,7 +11,8 @@
   },
   "devDependencies": {
     "markdownlint-cli2": "0.24.0",
-    "oxfmt": "0.75.0"
+    "oxfmt": "0.75.0",
+    "yaml": "2.9.1"
   },
   "packageManager": "pnpm@11.20.0"
 }

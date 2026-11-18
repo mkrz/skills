@@ -32,6 +32,6 @@ It checks the format, the house rules and `scripts/check-skills.mjs`, which fail
 - a skill's `name` is not its folder name
 - a skill has no description or no `agents/openai.yaml`
 - `disable-model-invocation` in the skill and `allow_implicit_invocation` in `agents/openai.yaml` disagree
-- a skill, `README.md`, `BASE.md` or this file names a skill that doesn't exist
+- a skill, `README.md`, `BASE.md` or this file names a skill that doesn't exist. Every hyphenated name in backticks counts as a skill, unless it's listed in `notSkills` in the script
 - the tables in `README.md` don't list every skill in `skills/` exactly once
 - a skill names a model

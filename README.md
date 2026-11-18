@@ -16,37 +16,40 @@ Only you can start these by typing their name. The agent never fires them on its
 
 The agent loads these when the task matches. You can also call them by name.
 
-| Skill              | Fires when                                   | What it does                                                                                         |
-| ------------------ | -------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
-| `go-all-in`        | you say 'go all in'                          | Works on your tasks until the PR is ready to merge: commits, reviews, opens the PR and satisfies CI. |
-| `satisfy-ci`       | you want to satisfy the CI                   | Verifies every bot comment and CI failure in a PR, fixes the real ones and dismisses the rest.       |
-| `bulletproof`      | you say "bulletproof it"                     | Runs `consolidate` with models from different providers for up to 5 rounds.                          |
-| `consolidate`      | you want the current changes reviewed        | Reviews the changes in up to 3 rounds and fixes the real findings in the main thread.                |
-| `easy-fix`         | fixing findings from a review, bots or CI    | Verifies the finding, then fixes its cause with the easiest correct change.                          |
-| `commit`           | creating a commit                            | Single line conventional commits that say why, or precisely what when the why is unknown.            |
-| `pr-it-ty`         | working with PRs                             | A conventional commit title and a problem and solution description, updated on every push.           |
-| `writing-comments` | leaving a comment                            | Leads with a brief conclusion, then explains it in simple sentences.                                 |
-| `writing-issues`   | writing an issue                             | Describes the problem and the facts to watch out for, without proposing a fix.                       |
-| `writing-code`     | writing code                                 | No explaining comments, sparse destructuring and route queries started in the loader.                |
-| `suggest`          | you say "propose", "suggest" or "suggestion" | Challenges your idea and proposes a better fit for your goal.                                        |
-| `slopstop`         | building, changing or reviewing a UI         | Keeps AI slop out of UI and checks every UI change in a browser.                                     |
+| Skill            | Fires when                                       | What it does                                                                                           |
+| ---------------- | ------------------------------------------------ | ------------------------------------------------------------------------------------------------------ |
+| `go-all-in`      | you say 'go all in'                              | Works on your tasks until the PR is ready to merge: commits, reviews, proves it and satisfies CI.      |
+| `prove-it`       | you say "prove it" or a change needs proof       | Proves a change on the running app with an independent agent, and builds the setup when it is missing. |
+| `never-again`    | you say "never again" or a mistake came up twice | Turns a repeated mistake into a design change, a type, a lint rule or a test.                          |
+| `satisfy-ci`     | you want to satisfy the CI                       | Verifies every bot comment and CI failure in a PR, fixes the real ones and dismisses the rest.         |
+| `bulletproof`    | you say "bulletproof it"                         | Reviews security work, big features or a complete app by area, with two providers per area.            |
+| `consolidate`    | you say "consolidate it" or want a review        | Reviews the changes in up to 3 rounds and fixes the real findings in the main thread.                  |
+| `easy-fix`       | fixing findings from a review, bots or CI        | Verifies the finding, then fixes its cause with the easiest correct change.                            |
+| `commit`         | creating a commit                                | Single line conventional commits that say why, or precisely what when the why is unknown.              |
+| `pr-it-ty`       | working with PRs                                 | A conventional commit title and a description with the problem, solution, verification and risks.      |
+| `writing-issues` | writing an issue                                 | Describes the problem and the facts to watch out for, without proposing a fix.                         |
+| `suggest`        | you say "propose", "suggest" or "suggestion"     | Challenges your idea and proposes a better fit for your goal.                                          |
+| `slopstop`       | building, changing or reviewing a UI             | Keeps AI slop out of UI and has an independent agent verify every UI change.                           |
 
 Some skills call others. Install the ones they need too:
 
-- `go-all-in` uses `consolidate`, `bulletproof`, `pr-it-ty` and `satisfy-ci`.
-- `bulletproof` uses `consolidate`.
+- `go-all-in` uses `consolidate`, `bulletproof`, `prove-it`, `pr-it-ty` and `satisfy-ci`.
+- `prove-it` uses `easy-fix` and `slopstop`.
+- `slopstop` uses `prove-it`.
+- `bulletproof` uses `easy-fix`.
 - `consolidate` uses `easy-fix`.
-- `satisfy-ci` uses `easy-fix` and `writing-comments`.
+- `satisfy-ci` uses `easy-fix`.
 - `pr-it-ty` uses `commit`.
 - `grill-me-royale` adds suggestion questions when you use `suggest` between rounds.
 
+`go-all-in`, `consolidate`, `bulletproof` and `satisfy-ci` end with the causes that came up twice, so you can run `never-again` on them.
+
+## Base Rules
+
+[`BASE.md`](BASE.md) holds the rules that apply to every task: how to back a claim, how to write a comment and which models review.
+The skills expect it in every session, e.g. `consolidate` and `bulletproof` take their models from it.
+
 ## Get Them Now
-
-```bash
-npx skills@latest add mkrz/skills
-```
-
-or
 
 ```bash
 git clone https://github.com/mkrz/skills
@@ -54,8 +57,29 @@ cp -R skills/skills/* ~/.claude/skills/   # Claude Code
 cp -R skills/skills/* ~/.codex/skills/    # Codex
 ```
 
+Then install the base rules:
+
+```bash
+mkdir -p ~/.claude/rules
+cp skills/BASE.md ~/.claude/rules/mkrz.md   # Claude Code
+cp skills/BASE.md ~/.codex/mkrz.md          # Codex
+```
+
+Claude Code loads every file in `~/.claude/rules` on its own.
+Codex only loads `~/.codex/AGENTS.md`, so add this line to it:
+
+```md
+Read `~/.codex/mkrz.md` before your first reply in every session. It holds rules that apply to every task.
+```
+
+`npx skills@latest add mkrz/skills` installs the skills as well, but not the base rules.
+
 ## Requirements
 
 - An authenticated [GitHub CLI](https://cli.github.com) (`gh`) for `satisfy-ci` and `go-all-in`.
 - `bulletproof` needs models from different providers to work properly.
-- `slopstop` verifies UI with the `agent-browser` CLI from [vercel-labs/agent-browser](https://github.com/vercel-labs/agent-browser).
+- `prove-it` and `slopstop` drive a UI with the `agent-browser` CLI from [vercel-labs/agent-browser](https://github.com/vercel-labs/agent-browser).
+
+## Changing a Skill
+
+Read [`AGENTS.md`](AGENTS.md) first. `pnpm run verify` checks the format, the house rules and that the skills, their triggers and this page still match.

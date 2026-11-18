@@ -6,7 +6,8 @@
     "format": "oxfmt .",
     "format:check": "oxfmt --check .",
     "lint": "markdownlint-cli2",
-    "verify": "pnpm run format:check && pnpm run lint"
+    "verify": "pnpm run format:check && pnpm run lint && pnpm run check",
+    "check": "node scripts/check-skills.mjs"
   },
   "devDependencies": {
     "markdownlint-cli2": "0.24.0",

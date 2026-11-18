@@ -60,8 +60,9 @@ Give it the goal, the changed features, the feature map and the bar. Tell it not
 
 It walks every changed feature through each entry point, including its empty, loading and error states.
 For a UI, it takes a screenshot of each state at desktop and mobile width and checks them against the `slopstop` skill.
-It runs the reload test on every changed page: set every control, reload and compare. The page must show the same thing.
-State that is gone after a reload was in the wrong place, unless it's open or closed, hover or focus.
+It runs the reload test on every changed page: set every control that changes what the page shows (e.g. a filter, a sort, a tab or the page of a table), reload and compare. The page must show the same thing.
+State like this belongs in the URL or on the server.
+An unsaved form, a password or a picked file may be gone after a reload.
 For a bug, it reproduces the bug on the old code first, then shows it gone on the new code.
 
 It reports each part as passed or failed with its evidence: a screenshot or the output of a command. A part without evidence doesn't count.

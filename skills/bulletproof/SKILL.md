@@ -39,7 +39,8 @@ Tell it the safety rules of the machine: no real services or `.env` files, fakes
 
 Tell it to check its area by running the old and new code on the same inputs, not just by reading.
 Ask it to mark each finding as introduced by the diff or pre-existing.
-Each finding should include a reproduction example to provide evidence, unless the code itself serves as that evidence.
+Each finding needs evidence: a reproduction it ran, or the exact lines that show it.
+Tell it to leave out what it can't show. No findings is a valid result.
 It lists findings outside its area in one line each, and you route them to their area.
 
 Tell it to reply with all findings listed, a score out of 10 and the files it read.

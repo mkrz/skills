@@ -18,7 +18,8 @@ Tell it the goal and the bar, not how to review.
 It may read any file, run the tests and the code and write throwaway scripts outside the repo. Tell it not to edit anything.
 
 Ask it to mark each finding as introduced by the diff or pre-existing.
-Each finding should include a reproduction example to provide evidence, unless the code itself serves as that evidence.
+Each finding needs evidence: a reproduction it ran, or the exact lines that show it.
+Tell it to leave out what it can't show. No findings is a valid result.
 Tell it to reply with all findings listed including a score out of 10, the areas of the app it scanned and the files it read.
 Ask it to end with "APPROVE" when the change meets the bar, otherwise "CHANGES". Approving never means leaving findings out.
 

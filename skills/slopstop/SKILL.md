@@ -22,11 +22,10 @@ Write each value so it reads on its own, beside the thing it describes: "3 open 
 
 ## Verify
 
-After substantial UI changes, review its UX with `agent-browser` (`agent-browser --help` lists the commands):
+Always use independent UI verification agents when changing parts of the UI or designing new UIs.
+Run the `prove-it` skill for that. Its agent walks every changed flow and takes the screenshots.
 
-1. Walk every changed flow end to end, including its empty, loading, and error states.
-2. Screenshot each state at desktop and mobile width.
-3. Open and read every screenshot. Look for broken layout, clipped or overlapping text, a wrong state, and any rule above that slipped.
-4. Fix and reshoot until a full pass is clean.
+Tell the agent to look for broken layout, clipped or overlapping text, a wrong state and any rule above that slipped.
+Looking at your own change doesn't count, because you see what you meant to build.
 
-Report the flows you walked. If `agent-browser` is missing, say the UI is unverified.
+If `agent-browser` is missing, say the UI is unverified.

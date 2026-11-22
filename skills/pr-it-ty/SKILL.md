@@ -11,6 +11,13 @@ In the PR description briefly describe the problem and why this PR exists, then 
 Only write a problem you have evidence for. If the user didn't say why, describe how it worked before and leave the cause out. Never make up a why.
 Never expose any secrets, private details or absolute local paths.
 
+In Verification, list what you ran and what it showed: the checks, the features walked with the `prove-it` skill and the evidence. Add screenshots, when you have a way to upload them.
+For a bug, show the reproduction failing before and passing after.
+Say what you could not verify and why.
+
+In Risks, list what could break outside the diff, anything that can't be undone (e.g. a migration) and what a reviewer should look at first.
+If there are no risks, you can remove this section.
+
 ```md
 ## Problem
 
@@ -19,6 +26,14 @@ Never expose any secrets, private details or absolute local paths.
 ## Solution
 
 <solution>
+
+## Verification
+
+<verification>
+
+## Risks
+
+<risks>
 
 > [!NOTE]
 > 🤖 **PR created by <model-name>**

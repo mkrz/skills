@@ -1,11 +1,11 @@
 ---
 name: consolidate
-description: Code review by a subagent in rounds, with the findings fixed in the main thread. Use when the user wants the current changes reviewed.
+description: Code review by a subagent in rounds, with the findings fixed in the main thread. Use when the user says "consolidate it" or wants the current changes reviewed.
 ---
 
 # Consolidate
 
-Review the current changes with a subagent. Use GPT 6.1 Sol at high, if the user does not name a specific model. If unavailable, use the latest flagship model of another provider with high or xhigh effort.
+Review the current changes with a subagent. Use the first of the review models in `BASE.md`, if the user does not name a specific model. If unavailable, use the latest flagship model of another provider with high or xhigh effort.
 If the branch has no diff against its base, ask the user what to review.
 
 ## The Brief
@@ -18,7 +18,8 @@ Tell it the goal and the bar, not how to review.
 It may read any file, run the tests and the code and write throwaway scripts outside the repo. Tell it not to edit anything.
 
 Ask it to mark each finding as introduced by the diff or pre-existing.
-Each finding should include a reproduction example to provide evidence, unless the code itself serves as that evidence.
+Each finding needs evidence: a reproduction it ran, or the exact lines that show it.
+Tell it to leave out what it can't show. No findings is a valid result.
 Tell it to reply with all findings listed including a score out of 10, the areas of the app it scanned and the files it read.
 Ask it to end with "APPROVE" when the change meets the bar, otherwise "CHANGES". Approving never means leaving findings out.
 
@@ -57,4 +58,5 @@ If the last round produced fixes, review just those commits once more, even at t
 
 If you hit the round limit, or a disagreement is still open after two rounds, show both sides and let the user decide. Hitting the limit doesn't count as approval.
 
-At the end, report the bar, each round's scores, what changed, what you rejected and the follow-up list, if no other skill called consolidate.
+At the end, report the bar, each round's scores, what changed, what you rejected and the follow-up list.
+Also list every cause that came up in two rounds, so the user can run the `never-again` skill on it.

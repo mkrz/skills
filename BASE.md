@@ -29,5 +29,9 @@ You are allowed to resolve a review thread after successfully posting a comment.
 
 Skills that review use these models, if the user does not name specific models.
 
-- GPT 6.1 Sol at high
-- Claude Fable 5.2 at high
+- GPT 6.2 Sol - xhigh
+- Gemini 4 Neon - xhigh
+- Claude Fable 5.2 - high
+- Claude Opus 5.5 - xhigh
+
+Prefer using review models that did not write the code.

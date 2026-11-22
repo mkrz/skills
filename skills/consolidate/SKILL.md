@@ -5,7 +5,7 @@ description: Code review by a subagent in rounds, with the findings fixed in the
 
 # Consolidate
 
-Review the current changes with a subagent. Use the first of the review models in `BASE.md`, if the user does not name a specific model. If unavailable, use the latest flagship model of another provider with high or xhigh effort.
+Review the current changes with a subagent. Use the first review model in `BASE.md` that did not write the code, if the user does not name a specific model. If it is unavailable, use the next one. If none is left, stop and say so.
 If the branch has no diff against its base, ask the user what to review.
 
 ## The Brief

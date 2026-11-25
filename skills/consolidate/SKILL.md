@@ -5,59 +5,49 @@ description: Code review by a subagent in rounds, with the findings fixed in the
 
 # Consolidate
 
-Review the current changes with a subagent. Pick the review model from `BASE.md`, if the user does not name a specific model. If none is available, stop and ask the user which model to use.
-If the branch has no diff against its base, ask the user what to review.
+Review the current changes with a subagent using the review model from `BASE.md`, unless the user names one.
+Stop and ask if none is available or the branch has no diff against its base.
 
 ## The Brief
 
-Give the subagent the repo path, base commit, diff command, intent and what's out of scope.
-Add the bar the change has to hold up against, based on the intent.
-Keep the same bar for every round. A bar that moves always has one more hole.
+Give the reviewer the goal and the bar, not how to review:
 
-Tell it the goal and the bar, not how to review.
-It may read any file, run the tests and the code and write throwaway scripts outside the repo. Tell it not to edit anything.
+- repo path, base commit, diff command, intent and what is out of scope
+- the bar the change must meet, the same in every round
+- settled decisions: questions already decided, lasting rejections and deferred pre-existing findings. It must not raise them again.
+- safety rules: no real services or `.env` files, fakes for external commands, scratch files in a new directory outside the repo
 
-Ask it to mark each finding as introduced by the diff or pre-existing, and as `ran` (proven by running code) or `read` (spotted only by reading).
-Each finding needs evidence: a reproduction it ran, or the exact lines that show it.
-Tell it to leave out what it can't show. No findings is a valid result.
-Ask it to name any part a smaller change would replace, and to show that change.
-Tell it to reply with all findings listed including a score out of 10, the areas of the app it scanned and the files it read.
-Ask it to end with "APPROVE" when the change meets the bar, otherwise "CHANGES". Approving never means leaving findings out.
+It may read any file and run code and tests, but never edit anything.
 
-For a large diff, tell it to split the diff into areas and check each one by running the old and new code on the same inputs, not just by reading.
+Ask it for:
 
-Give it a file of settled decisions: questions you or the user already decided. Add every finding you reject for a lasting reason to that file. Reviewers must not raise a settled decision again.
-
-Tell it the safety rules of the machine: no real services or `.env` files, fakes for every external command, and scratch files in its own new directory, never a shared one.
+- the areas of the change, one per behavior path (you name risky ones as a floor, it adds the rest). It runs the code in each area (comparing old and new on the same inputs where possible) and marks each `ran`, `read` (with the reason) or `not checked`. An area that cannot run under the safety rules is `read`.
+- every finding with evidence (run output or exact lines), tagged with its cause, introduced or pre-existing, and `ran` or `read`. Leave out unproven claims. No findings is valid.
+- any part a smaller change would replace, with that change
+- the files it read
+- `APPROVE` or `CHANGES` as the last line. A blocker is an introduced finding that breaks the bar, a pre-existing finding that blocks the intent, or an in-scope `not checked` area. Approve only with zero blockers. Approving never means leaving findings out.
 
 ## Each Round
 
-Review and check every finding yourself. You decide which findings are valid and worth a fix or rejected.
-Verify every `read` finding yourself before accepting it: reproduce behavior bugs on the running code when possible, or confirm structural and docs findings directly in the source.
-Reject unneeded nits, unneeded tests and anything out of scope in one line with the reason. Keep the PR at the size the user's goal needs, because review loops tend to go out of scope.
+Check every finding yourself. Verify each `read` finding: run it if it is about behavior, otherwise confirm it in the source. Reject nits, unneeded tests and out-of-scope findings in one line with the reason.
 
-Fix valid findings the diff introduced in the main thread using the `easy-fix` skill.
-If the same code gets findings in two rounds in a row, stop patching it and rethink its design once.
+Load and follow the `easy-fix` skill before editing. Fix valid introduced findings and pre-existing findings that block the intent. Rethink the design once if the same code fails two consecutive rounds.
+Put other pre-existing findings on a follow-up list (security first), and add them and lasting rejections to settled decisions in the same round.
 
-Pre-existing findings go on a follow-up list for the user, with security holes at the top.
+After committing fixes, start the next round with the same brief plus:
 
-After all fixes are committed, start the next round with the same brief and the diff of all fix commits made so far.
-List every finding so far, one line each with its status as a plain fact (e.g. "fixed in a1b2c3d", "rejected: needs an admin key").
-Ask the reviewer to check that each fix closes its finding and that all fix commits together introduce no regressions.
-Point it specifically at files no one has read and areas that no one has looked at yet. Everywhere else only new findings that break the bar count.
-Do not tell the reviewer which round it is. Always give it the findings so far and the settled decisions.
+- the diff of all fix commits
+- every finding so far, one line each (e.g. "rejected: needs admin key", "deferred: pre-existing", "fixed in a1b2c3d: missing await, also in 2 handlers, repro passes"). Each fix line names the commit, cause, other places and check.
+- the areas with their states
 
-At the end of each round briefly report the round's score.
+Tell it this follow-up scope overrides the initial area sweep: check only that each fix closes its finding, that the fix commits add no regression, each known cause across the diff and any `not checked` area. Tell it not to hunt checked areas, while still reporting any blocker seen in touched code.
+Do not tell it which round it is. After each round, report one status line: verdict, accepted blocking findings (introduced and pre-existing) and areas per state.
 
 ## Stop Condition
 
-Only findings that break the bar count toward a new round. When a round's only findings are docs or wording, fix them and have the reviewer check just those commits.
+Only blockers start a new round. For docs or wording findings alone, fix them and have the reviewer check just those commits.
+Stop on `APPROVE`, or after 3 rounds (5 for security work), unless the user asks for more.
+If the last round produced fixes, run one final check on all fix commits, even at the limit. If it finds a blocker, stop and show the user. Do not fix it.
+At the limit, or after two rounds of open disagreement, stop and show both sides. The limit is not approval.
 
-Stop when the reviewer approves, or after a maximum of 3 rounds (5 for security work), unless the user asks for more rounds.
-If the last round produced fixes, run one final check on all fix commits made during the loop, even at the limit. Unreviewed fixes don't count as approval.
-If that final check finds anything that breaks the bar, stop and show the user. Never fix and check again.
-
-If you hit the round limit, or a disagreement is still open after two rounds, show both sides and let the user decide. Hitting the limit doesn't count as approval.
-
-At the end, report the bar, each round's scores, what changed, whether any regressions remain, what you rejected and the follow-up list.
-Also list every cause that came up in two rounds, so the user can run the `never-again` skill on it.
+At the end, report the bar, each round's status line, which skills ran, what changed, open regressions, rejections, the follow-up list and every cause raised in two rounds for the `never-again` skill.

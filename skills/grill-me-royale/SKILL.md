@@ -13,7 +13,7 @@ Ask about goals, scope and the big forks first. Only dig into one branch once no
 Only ask about the plan, never waste questions for logistics, such as whether access exists, who does a step or what you may touch.
 Assume the user can provide it, and raise it only when it blocks the work.
 Never ask what an earlier answer or a lookup already decides.
-Use open questions and only give a suggestion or recommendation when the user asks for one.
+Use open questions and only give a suggestion or recommendation when the user asks for one, using the `suggest` skill.
 Look up facts yourself or send a subagent.
 
 The brief summary should include all decisions you took away from the last round and questions and information unrelated to architectural decisions, like whether access for something exists or something the user has to provide to execute the plan.

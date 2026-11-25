@@ -5,7 +5,7 @@ description: Code review by a subagent in rounds, with the findings fixed in the
 
 # Consolidate
 
-Review the current changes with a subagent. Use the first review model in `BASE.md` that did not write the code, if the user does not name a specific model. If it is unavailable, use the next one. If none is left, stop and say so.
+Review the current changes with a subagent. Pick the review model from `BASE.md`, if the user does not name a specific model. If none is available, stop and ask the user which model to use.
 If the branch has no diff against its base, ask the user what to review.
 
 ## The Brief
@@ -17,9 +17,10 @@ Keep the same bar for every round. A bar that moves always has one more hole.
 Tell it the goal and the bar, not how to review.
 It may read any file, run the tests and the code and write throwaway scripts outside the repo. Tell it not to edit anything.
 
-Ask it to mark each finding as introduced by the diff or pre-existing.
+Ask it to mark each finding as introduced by the diff or pre-existing, and as `ran` (proven by running code) or `read` (spotted only by reading).
 Each finding needs evidence: a reproduction it ran, or the exact lines that show it.
 Tell it to leave out what it can't show. No findings is a valid result.
+Ask it to name any part a smaller change would replace, and to show that change.
 Tell it to reply with all findings listed including a score out of 10, the areas of the app it scanned and the files it read.
 Ask it to end with "APPROVE" when the change meets the bar, otherwise "CHANGES". Approving never means leaving findings out.
 
@@ -31,9 +32,8 @@ Tell it the safety rules of the machine: no real services or `.env` files, fakes
 
 ## Each Round
 
-Wait for all reviewers in a round to report back to you before acting on responses.
-
 Review and check every finding yourself. You decide which findings are valid and worth a fix or rejected.
+Verify every `read` finding yourself before accepting it: reproduce behavior bugs on the running code when possible, or confirm structural and docs findings directly in the source.
 Reject unneeded nits, unneeded tests and anything out of scope in one line with the reason. Keep the PR at the size the user's goal needs, because review loops tend to go out of scope.
 
 Fix valid findings the diff introduced in the main thread using the `easy-fix` skill.
@@ -41,22 +41,23 @@ If the same code gets findings in two rounds in a row, stop patching it and reth
 
 Pre-existing findings go on a follow-up list for the user, with security holes at the top.
 
-After all fixes are committed, start the next round with the same brief and the diff since the last round.
+After all fixes are committed, start the next round with the same brief and the diff of all fix commits made so far.
 List every finding so far, one line each with its status as a plain fact (e.g. "fixed in a1b2c3d", "rejected: needs an admin key").
-Ask the reviewers to check that each fix closes its finding without a new regression.
-Point them specifically at files no one has read and areas that no one has looked at yet. Everywhere else only new findings that break the bar count.
-Do not tell subagents which round it is. Always give them the findings so far and the settled decisions.
+Ask the reviewer to check that each fix closes its finding and that all fix commits together introduce no regressions.
+Point it specifically at files no one has read and areas that no one has looked at yet. Everywhere else only new findings that break the bar count.
+Do not tell the reviewer which round it is. Always give it the findings so far and the settled decisions.
 
 At the end of each round briefly report the round's score.
 
 ## Stop Condition
 
-Only findings that break the bar count toward a new round. When a round's only findings are docs or wording, fix them and have one reviewer check just those commits.
+Only findings that break the bar count toward a new round. When a round's only findings are docs or wording, fix them and have the reviewer check just those commits.
 
-Stop when either all subagents approve, or after a maximum of 3 rounds if the user does not explicitly want more rounds.
-If the last round produced fixes, review just those commits once more, even at the limit. Unreviewed fixes don't count as approval.
+Stop when the reviewer approves, or after a maximum of 3 rounds (5 for security work), unless the user asks for more rounds.
+If the last round produced fixes, run one final check on all fix commits made during the loop, even at the limit. Unreviewed fixes don't count as approval.
+If that final check finds anything that breaks the bar, stop and show the user. Never fix and check again.
 
 If you hit the round limit, or a disagreement is still open after two rounds, show both sides and let the user decide. Hitting the limit doesn't count as approval.
 
-At the end, report the bar, each round's scores, what changed, what you rejected and the follow-up list.
+At the end, report the bar, each round's scores, what changed, whether any regressions remain, what you rejected and the follow-up list.
 Also list every cause that came up in two rounds, so the user can run the `never-again` skill on it.

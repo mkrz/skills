@@ -1,0 +1,3 @@
+interface:
+  display_name: 'TanStack'
+  short_description: 'Rules for TanStack Router and TanStack Query routes and queries'

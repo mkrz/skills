@@ -16,20 +16,21 @@ Only you can start these by typing their name. The agent never fires them on its
 
 The agent loads these when the task matches. You can also call them by name.
 
-| Skill            | Fires when                                       | What it does                                                                                           |
-| ---------------- | ------------------------------------------------ | ------------------------------------------------------------------------------------------------------ |
-| `go-all-in`      | you say 'go all in'                              | Works on your tasks until the PR is ready to merge: commits, reviews, proves it and satisfies CI.      |
-| `prove-it`       | you say "prove it" or a change needs proof       | Proves a change on the running app with an independent agent, and builds the setup when it is missing. |
-| `never-again`    | you say "never again" or a mistake came up twice | Turns a repeated mistake into a design change, a type, a lint rule or a test.                          |
-| `satisfy-ci`     | you want to satisfy the CI                       | Verifies every bot comment and CI failure in a PR, fixes the real ones and dismisses the rest.         |
-| `bulletproof`    | you say "bulletproof it"                         | Reviews security work, big features or a complete app by area, with two providers per area.            |
-| `consolidate`    | you say "consolidate it" or want a review        | Reviews the changes in up to 3 rounds and fixes the real findings in the main thread.                  |
-| `easy-fix`       | fixing findings from a review, bots or CI        | Verifies the finding, then fixes its cause with the easiest correct change.                            |
-| `commit`         | creating a commit                                | Single line conventional commits that say why, or precisely what when the why is unknown.              |
-| `pr-it-ty`       | working with PRs                                 | A conventional commit title and a description with the problem, solution, verification and risks.      |
-| `writing-issues` | writing an issue                                 | Describes the problem and the facts to watch out for, without proposing a fix.                         |
-| `suggest`        | you say "propose", "suggest" or "suggestion"     | Challenges your idea and proposes a better fit for your goal.                                          |
-| `slopstop`       | building, changing or reviewing a UI             | Keeps AI slop out of UI and has an independent agent verify every UI change.                           |
+| Skill            | Fires when                                                    | What it does                                                                                           |
+| ---------------- | ------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| `go-all-in`      | you say 'go all in'                                           | Works on your tasks until the PR is ready to merge: commits, reviews, proves it and satisfies CI.      |
+| `prove-it`       | you say "prove it" or a change needs proof                    | Proves a change on the running app with an independent agent, and builds the setup when it is missing. |
+| `never-again`    | you say "never again" or a mistake came up twice              | Turns a repeated mistake into a design change, a type, a lint rule or a test.                          |
+| `satisfy-ci`     | you want to satisfy the CI                                    | Verifies every bot comment and CI failure in a PR, fixes the real ones and dismisses the rest.         |
+| `bulletproof`    | you say "bulletproof it"                                      | Reviews security work, big features or a complete app by area, with two providers per area.            |
+| `consolidate`    | you say "consolidate it" or want a review                     | Reviews the changes in up to 3 rounds and fixes the real findings in the main thread.                  |
+| `easy-fix`       | fixing findings from a review, bots or CI                     | Verifies the finding, then fixes its cause with the easiest correct change.                            |
+| `commit`         | creating a commit                                             | Single line conventional commits that say why, or precisely what when the why is unknown.              |
+| `pr-it-ty`       | working with PRs                                              | A conventional commit title and a description with the problem, solution, verification and risks.      |
+| `writing-issues` | writing an issue                                              | Describes the problem and the facts to watch out for, without proposing a fix.                         |
+| `suggest`        | you say "propose", "suggest" or "suggestion"                  | Challenges your idea and proposes a better fit for your goal.                                          |
+| `slopstop`       | building, changing or reviewing a UI                          | Keeps AI slop out of UI and has an independent agent verify every UI change.                           |
+| `tanstack`       | writing, changing or reviewing TanStack Router and Query code | Ensures route queries preload through `loader` and `queryClient.ensureQueryData`.                      |
 
 Some skills call others. Install the ones they need too:
 
@@ -46,7 +47,7 @@ Some skills call others. Install the ones they need too:
 
 ## Base Rules
 
-[`BASE.md`](BASE.md) holds the rules that apply to every task: how to back a claim, how to write a comment and which models review.
+[`BASE.md`](BASE.md) holds the rules that apply to every task: how to back a claim, when to act, how to write replies and comments and which models to use by role.
 The skills expect it in every session, e.g. `consolidate` and `bulletproof` take their models from it.
 
 ## Get Them Now
@@ -77,6 +78,7 @@ Read `~/.codex/mkrz.md` before your first reply in every session. It holds rules
 ## Requirements
 
 - An authenticated [GitHub CLI](https://cli.github.com) (`gh`) for `satisfy-ci` and `go-all-in`.
+- Access to the models listed in [`BASE.md`](BASE.md) (or name your own) for role-based subagents and `consolidate`.
 - `bulletproof` needs models from different providers to work properly.
 - `prove-it` and `slopstop` drive a UI with the `agent-browser` CLI from [vercel-labs/agent-browser](https://github.com/vercel-labs/agent-browser).
 

@@ -23,8 +23,7 @@ The agent loads these when the task matches. You can also call them by name.
 | `root-cause`     | you say "find the root cause" or a bug's cause is unknown     | Finds the root cause of a bug with evidence from the running code, then fixes it.                      |
 | `never-again`    | you say "never again" or a mistake came up twice              | Turns a repeated mistake into a design change, a type, a lint rule or a test.                          |
 | `satisfy-ci`     | you want to satisfy the CI                                    | Verifies every bot comment and CI failure in a PR, fixes the real ones and dismisses the rest.         |
-| `bulletproof`    | you say "bulletproof it"                                      | Reviews security work, big features or a complete app by area, with two providers per area.            |
-| `consolidate`    | you say "consolidate it" or want a review                     | Reviews the changes in up to 3 rounds and fixes the real findings in the main thread.                  |
+| `consolidate`    | you say "consolidate it" or want a review                     | Reviews the changes in up to 3 rounds (5 for security) and fixes the real findings in the main thread. |
 | `easy-fix`       | fixing findings from a review, bots or CI                     | Verifies the finding, then fixes its cause with the easiest correct change.                            |
 | `commit`         | creating a commit                                             | Single line conventional commits that say why, or precisely what when the why is unknown.              |
 | `pr-it-ty`       | working with PRs                                              | A conventional commit title and a description with the problem, solution, verification and risks.      |
@@ -40,18 +39,17 @@ Some skills call others. Install the ones they need too:
 - `slopstop` uses `prove-it`.
 - `root-cause` uses `prove-it` and `easy-fix`.
 - `easy-fix` uses `root-cause`.
-- `bulletproof` uses `easy-fix`.
 - `consolidate` uses `easy-fix`.
 - `satisfy-ci` uses `easy-fix`.
 - `pr-it-ty` uses `commit` and reports results from `prove-it`.
 - `grill-me-royale` adds suggestion questions when you use `suggest` between rounds.
 
-`go-all-in`, `consolidate`, `bulletproof` and `satisfy-ci` end with the causes that came up twice, so you can run `never-again` on them.
+`go-all-in`, `consolidate` and `satisfy-ci` end with the causes that came up twice, so you can run `never-again` on them.
 
 ## Base Rules
 
 [`BASE.md`](BASE.md) holds the rules that apply to every task: how to back a claim, when to act, how to write replies and comments and which models to use by role.
-The skills expect it in every session, e.g. `consolidate` and `bulletproof` take their models from it.
+The skills expect it in every session, e.g. `consolidate` takes its review model from it.
 
 ## Get Them Now
 
@@ -82,7 +80,6 @@ Read `~/.codex/mkrz.md` before your first reply in every session. It holds rules
 
 - An authenticated [GitHub CLI](https://cli.github.com) (`gh`) for `satisfy-ci` and `go-all-in`.
 - Access to the models listed in [`BASE.md`](BASE.md) (or name your own) for role-based subagents and `consolidate`.
-- `bulletproof` needs models from different providers to work properly.
 - `prove-it` and `slopstop` drive a UI with the `agent-browser` CLI from [vercel-labs/agent-browser](https://github.com/vercel-labs/agent-browser).
 
 ## Changing a Skill

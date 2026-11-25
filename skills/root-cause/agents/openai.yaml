@@ -1,0 +1,3 @@
+interface:
+  display_name: 'Root Cause'
+  short_description: 'Find a bug root cause with evidence from running code before fixing it'

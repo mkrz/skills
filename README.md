@@ -20,6 +20,7 @@ The agent loads these when the task matches. You can also call them by name.
 | ---------------- | ------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
 | `go-all-in`      | you say 'go all in'                                           | Works on your tasks until the PR is ready to merge: commits, reviews, proves it and satisfies CI.      |
 | `prove-it`       | you say "prove it" or a change needs proof                    | Proves a change on the running app with an independent agent, and builds the setup when it is missing. |
+| `root-cause`     | you say "find the root cause" or a bug's cause is unknown     | Finds the root cause of a bug with evidence from the running code, then fixes it.                      |
 | `never-again`    | you say "never again" or a mistake came up twice              | Turns a repeated mistake into a design change, a type, a lint rule or a test.                          |
 | `satisfy-ci`     | you want to satisfy the CI                                    | Verifies every bot comment and CI failure in a PR, fixes the real ones and dismisses the rest.         |
 | `bulletproof`    | you say "bulletproof it"                                      | Reviews security work, big features or a complete app by area, with two providers per area.            |
@@ -37,6 +38,8 @@ Some skills call others. Install the ones they need too:
 - `go-all-in` uses `consolidate`, `bulletproof`, `prove-it`, `pr-it-ty` and `satisfy-ci`.
 - `prove-it` uses `easy-fix` and `slopstop`.
 - `slopstop` uses `prove-it`.
+- `root-cause` uses `prove-it` and `easy-fix`.
+- `easy-fix` uses `root-cause`.
 - `bulletproof` uses `easy-fix`.
 - `consolidate` uses `easy-fix`.
 - `satisfy-ci` uses `easy-fix`.

@@ -237,3 +237,86 @@ fails(
   edit('README.md', '| `suggest` ', '| `writing-code` '),
   /README.md: `writing-code` is in a table but not in skills\//,
 );
+
+fails(
+  'a skill reference missing from the README uses list',
+  append('skills/commit/SKILL.md', 'Run the `prove-it` skill first.\n'),
+  /README.md: list `prove-it` under `commit` in the skill uses list/,
+);
+
+fails(
+  'a README uses entry not named in SKILL.md',
+  edit(
+    'README.md',
+    '- `consolidate` uses `easy-fix`.',
+    '- `consolidate` uses `easy-fix` and `prove-it`.',
+  ),
+  /README.md: `consolidate` lists `prove-it` in the skill uses list, but consolidate\/SKILL.md does not name it/,
+);
+
+fails(
+  'a duplicate skill bullet in the README uses list',
+  edit(
+    'README.md',
+    '- `slopstop` uses `prove-it`.',
+    '- `slopstop` uses `prove-it`.\n- `slopstop` uses `prove-it`.',
+  ),
+  /README.md: `slopstop` is listed more than once in the skill uses list/,
+);
+
+fails(
+  'a never-again reference missing from the README follow-up line',
+  edit(
+    'README.md',
+    '`go-all-in`, `consolidate` and `satisfy-ci` end with',
+    '`go-all-in` and `consolidate` end with',
+  ),
+  /README.md: list `never-again` under `satisfy-ci` in the skill uses list/,
+);
+
+fails(
+  'an unknown non-hyphenated skill in the README uses list',
+  edit('README.md', '- `pr-it-ty` uses `commit`', '- `pr-it-ty` uses `comit`'),
+  /README.md: `comit` in the skill uses list is not a skill/,
+);
+
+fails(
+  'a missing skill uses section in README',
+  edit('README.md', 'Some skills call others.', 'Skill links:'),
+  /README.md: missing the skill uses section/,
+);
+
+fails(
+  'an unknown skill owner in the README uses list',
+  edit('README.md', '- `consolidate` uses', '- `ghost` uses'),
+  /README.md: `ghost` is in the skill uses list but not in skills\//,
+);
+
+passes('skill names inside code fences and frontmatter are ignored', (copy) => {
+  edit(
+    'skills/commit/SKILL.md',
+    'description: Read when creating a commit.',
+    'description: Read when creating a commit (not `slopstop`).',
+  )(copy);
+  append(
+    'skills/commit/SKILL.md',
+    '\n```md\nExample `prove-it` fence\n```\n\n~~~\nExample `satisfy-ci` fence\n~~~\n',
+  )(copy);
+});
+
+test('fails: a missing SKILL.md does not add a false README uses error', () => {
+  const result = check((copy) => {
+    rmSync(join(copy, 'skills/consolidate/SKILL.md'));
+  });
+
+  assert.equal(result.status, 1, result.output);
+  assert.match(result.output, /consolidate: SKILL\.md is missing/);
+  assert.doesNotMatch(result.output, /consolidate\/SKILL\.md does not name it/);
+});
+
+passes('a skill uses section at the end of README', (copy) => {
+  const file = join(copy, 'README.md');
+  const text = readFileSync(file, 'utf8');
+
+  writeFileSync(file, `${text.slice(0, text.indexOf('\n## Base Rules'))}\n`);
+});

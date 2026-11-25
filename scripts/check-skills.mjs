@@ -25,6 +25,11 @@ const frontmatter = (text) => {
   return match === null ? null : object(match[1]);
 };
 
+const stripFrontmatterAndCode = (text) =>
+  text
+    .replace(/^---\n[\s\S]*?\n---\n/, '')
+    .replaceAll(/(?:```[\s\S]*?```|~~~[\s\S]*?~~~)/g, '');
+
 const object = (yaml) => {
   try {
     const value = parse(yaml);
@@ -51,6 +56,11 @@ const namedSkills = (text) => [
   ),
 ];
 
+const backtickedSkills = (text) =>
+  [...text.matchAll(/`([a-z][a-z0-9-]*)`/g)]
+    .map((match) => match[1])
+    .filter((name) => names.includes(name));
+
 // A vendor followed by a version, e.g. "GPT 6.1 Sol" or "claude-fable-5-2".
 const modelName = /\b(gpt|claude|gemini|grok)(?:[ -][a-z]+){0,2}[ -]\d/i;
 
@@ -63,6 +73,8 @@ const checkNamedSkills = (label, text) => {
     }
   }
 };
+
+const actualUses = new Map();
 
 for (const name of names) {
   const skillPath = join(skillsDir, name, 'SKILL.md');
@@ -92,6 +104,15 @@ for (const name of names) {
   }
 
   checkNamedSkills(name, text);
+
+  actualUses.set(
+    name,
+    new Set(
+      backtickedSkills(stripFrontmatterAndCode(text)).filter(
+        (other) => other !== name,
+      ),
+    ),
+  );
 
   if (modelName.test(text)) {
     errors.push(`${name}: names a model, move it to BASE.md`);
@@ -155,6 +176,91 @@ for (const name of names) {
 for (const name of new Set(listed)) {
   if (!names.includes(name)) {
     errors.push(`README.md: \`${name}\` is in a table but not in skills/`);
+  }
+}
+
+const usesMatch = /Some skills call others\.[^\n]*\n([\s\S]*?)(?:\n## |$)/.exec(
+  readme,
+);
+
+if (usesMatch === null) {
+  errors.push('README.md: missing the skill uses section');
+} else {
+  const readmeUses = new Map();
+  const bulletOwners = new Set();
+  const addUse = (owner, dep) => {
+    if (!readmeUses.has(owner)) {
+      readmeUses.set(owner, new Set());
+    }
+    readmeUses.get(owner).add(dep);
+  };
+
+  for (const rawLine of usesMatch[1].split('\n')) {
+    const line = rawLine.trim();
+    if (line === '') continue;
+
+    const bullet = /^- `([a-z][a-z0-9-]*)`(?:\s|$)/.exec(line);
+    if (bullet !== null) {
+      const owner = bullet[1];
+      if (!names.includes(owner)) {
+        errors.push(
+          `README.md: \`${owner}\` is in the skill uses list but not in skills/`,
+        );
+        continue;
+      }
+      if (bulletOwners.has(owner)) {
+        errors.push(
+          `README.md: \`${owner}\` is listed more than once in the skill uses list`,
+        );
+      }
+      bulletOwners.add(owner);
+
+      for (const match of line
+        .slice(bullet[0].length)
+        .matchAll(/`([a-z][a-z0-9-]*)`/g)) {
+        const dep = match[1];
+        if (!names.includes(dep)) {
+          errors.push(
+            `README.md: \`${dep}\` in the skill uses list is not a skill`,
+          );
+          continue;
+        }
+        if (dep !== owner) {
+          addUse(owner, dep);
+        }
+      }
+      continue;
+    }
+
+    const followUp = line.indexOf('`never-again`');
+    if (followUp !== -1) {
+      for (const owner of backtickedSkills(line.slice(0, followUp))) {
+        addUse(owner, 'never-again');
+      }
+    }
+  }
+
+  for (const name of names) {
+    if (!actualUses.has(name)) continue;
+
+    const expected = actualUses.get(name);
+    const documented = readmeUses.get(name) ?? new Set();
+
+    for (const dep of expected) {
+      if (!documented.has(dep)) {
+        errors.push(
+          `README.md: list \`${dep}\` under \`${name}\` in the skill uses list`,
+        );
+      }
+    }
+
+    for (const dep of documented) {
+      if (!expected.has(dep)) {
+        errors.push(
+          `README.md: \`${name}\` lists \`${dep}\` in the skill uses list, but ${name}/SKILL.md does not name it`,
+        );
+      }
+    }
   }
 }
 

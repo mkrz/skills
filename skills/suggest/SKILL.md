@@ -1,11 +1,11 @@
 ---
 name: suggest
-description: Use if the user writes the words "propose", "suggest" or "suggestion" and wants a suggestion from you.
+description: Use if the user writes "propose", "suggest", "suggestion", "challenge" or "improvements" and wants ideas or a challenge from you.
 ---
 
 Read how the user wants to move forward on the topic they mentioned.
 
-Your job is to give the user an idea that fits their goal better.
+Your job is to give the user concrete improvements or a better idea that fits their goal.
 
 If the user already gave you an idea, challenge it and propose either a:
 

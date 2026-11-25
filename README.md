@@ -28,7 +28,7 @@ The agent loads these when the task matches. You can also call them by name.
 | `commit`         | creating a commit                                             | Single line conventional commits that say why, or precisely what when the why is unknown.              |
 | `pr-it-ty`       | working with PRs                                              | A conventional commit title and a description with the problem, solution, verification and risks.      |
 | `writing-issues` | writing an issue                                              | Describes the problem and the facts to watch out for, without proposing a fix.                         |
-| `suggest`        | you say "propose", "suggest" or "suggestion"                  | Challenges your idea and proposes a better fit for your goal.                                          |
+| `suggest`        | you say "propose", "suggest", "challenge" or "improvements"   | Challenges your idea and proposes a better fit for your goal.                                          |
 | `slopstop`       | building, changing or reviewing a UI                          | Keeps AI slop out of UI and has an independent agent verify every UI change.                           |
 | `tanstack`       | writing, changing or reviewing TanStack Router and Query code | Ensures route queries preload through `loader` and `queryClient.ensureQueryData`.                      |
 

@@ -24,6 +24,7 @@ Only stop what you started. Never kill a process by its name.
 The driver never touches a shared database, a real service or `.env` files.
 It only resets data it created itself.
 Use a fake for everything that sends a message, charges money or changes shared records.
+Exception: an isolated vendor sandbox (e.g. a test-mode API) is allowed when a fake can't cover the integration and the user explicitly allows it and supplies sandbox credentials outside `.env`.
 
 ## Feature Map
 
@@ -61,7 +62,7 @@ Change a feature's file in the same PR that changes the feature.
 
 Spawn an independent agent that did not write the change.
 Give it the goal, the changed features, the feature map and the bar. Tell it not to edit anything.
-Tell it the same limits: only the driver's own database and fakes, never a shared database or a real service.
+Tell it the same limits: only the driver's own database and fakes (or a user-approved isolated sandbox), never a shared database or a real service.
 
 It walks every changed feature through each entry point, including its empty, loading and error states.
 For a UI, it takes a screenshot of each state at desktop and mobile width and checks them against the `slopstop` skill.

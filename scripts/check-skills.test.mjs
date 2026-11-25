@@ -163,8 +163,8 @@ fails(
   'a missing skill named on its own',
   edit(
     'skills/go-all-in/SKILL.md',
-    'or `bulletproof` to verify',
-    'or `writing-code` to verify',
+    'run `prove-it` again',
+    'run `writing-code` again',
   ),
   /go-all-in: names `writing-code`, which is not a skill/,
 );

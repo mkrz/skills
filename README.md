@@ -35,7 +35,7 @@ The agent loads these when the task matches. You can also call them by name.
 
 Some skills call others. Install the ones they need too:
 
-- `go-all-in` uses `consolidate`, `bulletproof`, `prove-it`, `pr-it-ty` and `satisfy-ci`.
+- `go-all-in` uses `consolidate`, `prove-it`, `pr-it-ty` and `satisfy-ci`.
 - `prove-it` uses `easy-fix` and `slopstop`.
 - `slopstop` uses `prove-it`.
 - `root-cause` uses `prove-it` and `easy-fix`.
@@ -43,7 +43,7 @@ Some skills call others. Install the ones they need too:
 - `bulletproof` uses `easy-fix`.
 - `consolidate` uses `easy-fix`.
 - `satisfy-ci` uses `easy-fix`.
-- `pr-it-ty` uses `commit`.
+- `pr-it-ty` uses `commit` and reports results from `prove-it`.
 - `grill-me-royale` adds suggestion questions when you use `suggest` between rounds.
 
 `go-all-in`, `consolidate`, `bulletproof` and `satisfy-ci` end with the causes that came up twice, so you can run `never-again` on them.

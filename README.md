@@ -16,21 +16,21 @@ Only you can start these by typing their name. The agent never fires them on its
 
 The agent loads these when the task matches. You can also call them by name.
 
-| Skill            | Fires when                                                    | What it does                                                                                           |
-| ---------------- | ------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
-| `go-all-in`      | you say 'go all in'                                           | Works on your tasks until the PR is ready to merge: commits, reviews, proves it and satisfies CI.      |
-| `prove-it`       | you say "prove it" or a change needs proof                    | Proves a change on the running app with an independent agent, and builds the setup when it is missing. |
-| `root-cause`     | you say "find the root cause" or a bug's cause is unknown     | Finds the root cause of a bug with evidence from the running code, then fixes it.                      |
-| `never-again`    | you say "never again" or a mistake came up twice              | Turns a repeated mistake into a design change, a type, a lint rule or a test.                          |
-| `satisfy-ci`     | you want to satisfy the CI                                    | Verifies every bot comment and CI failure in a PR, fixes the real ones and dismisses the rest.         |
-| `consolidate`    | you say "consolidate it" or want a review                     | Reviews the changes in up to 3 rounds (5 for security) and fixes the real findings in the main thread. |
-| `easy-fix`       | fixing findings from a review, bots or CI                     | Verifies the finding, then fixes its cause with the easiest correct change.                            |
-| `commit`         | creating a commit                                             | Single line conventional commits that say why, or precisely what when the why is unknown.              |
-| `pr-it-ty`       | working with PRs                                              | A conventional commit title and a description with the problem, solution, verification and risks.      |
-| `writing-issues` | writing an issue                                              | Describes the problem and the facts to watch out for, without proposing a fix.                         |
-| `suggest`        | you say "propose", "suggest", "challenge" or "improvements"   | Challenges your idea and proposes a better fit for your goal.                                          |
-| `slopstop`       | building, changing or reviewing a UI                          | Keeps AI slop out of UI and has an independent agent verify every UI change.                           |
-| `tanstack`       | writing, changing or reviewing TanStack Router and Query code | Ensures route queries preload through `loader` and `queryClient.ensureQueryData`.                      |
+| Skill            | Fires when                                                    | What it does                                                                                                  |
+| ---------------- | ------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| `go-all-in`      | you say 'go all in'                                           | Works on your tasks until the PR is ready to merge: commits, reviews, proves it and satisfies CI.             |
+| `prove-it`       | you say "prove it" or a change needs proof                    | Proves a change on the running app with an independent agent, and builds the setup when it is missing.        |
+| `root-cause`     | you say "find the root cause" or a bug's cause is unknown     | Finds the root cause of a bug with evidence from the running code, then fixes it.                             |
+| `never-again`    | you say "never again" or a mistake came up twice              | Turns a repeated mistake into a design change, a type, a lint rule or a test.                                 |
+| `satisfy-ci`     | you want to satisfy the CI                                    | Verifies every bot comment and CI failure in a PR, fixes the real ones and dismisses the rest.                |
+| `consolidate`    | you say "consolidate it" or want a review                     | Reviews the changes in up to 3 rounds (5 for sensitive areas) and fixes the real findings in the main thread. |
+| `easy-fix`       | fixing findings from a review, bots or CI                     | Verifies the finding, then fixes its cause with the easiest correct change.                                   |
+| `commit`         | creating a commit                                             | Single line conventional commits that say why, or precisely what when the why is unknown.                     |
+| `pr-it-ty`       | working with PRs                                              | A conventional commit title and a description with the problem, solution, verification and risks.             |
+| `writing-issues` | writing an issue                                              | Describes the problem and the facts to watch out for, without proposing a fix.                                |
+| `suggest`        | you say "propose", "suggest", "challenge" or "improvements"   | Challenges your idea and proposes a better fit for your goal.                                                 |
+| `slopstop`       | building, changing or reviewing a UI                          | Keeps AI slop out of UI and has an independent agent verify every UI change.                                  |
+| `tanstack`       | writing, changing or reviewing TanStack Router and Query code | Ensures route queries preload through `loader` and `queryClient.ensureQueryData`.                             |
 
 Some skills call others. Install the ones they need too:
 

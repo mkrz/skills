@@ -20,5 +20,6 @@ Apply these fix rules:
 Before calling it fixed:
 
 - Run the reproduction again when you have one. It must pass.
+- If the fix changes behavior and the app can be started, run the changed path once yourself before committing.
 - Never weaken a check to make it pass.
 - Run lint, typecheck and the touched tests.

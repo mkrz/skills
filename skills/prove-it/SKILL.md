@@ -20,6 +20,7 @@ Keep the setup and every run isolated:
 - Stop only processes you started. Never kill a process by name.
 
 Spawn an independent subagent that did not write the change and tell it never to edit repo files.
+Run the proof on a frozen tree: do not edit, stage or commit in the same worktree while the subagent runs, or give it its own worktree.
 Give it what changed, what must work, how to start and drive the app, and the isolation rules above. Ask it to:
 
 - exercise real user flows and affected states (e.g. empty or error states)

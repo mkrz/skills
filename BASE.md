@@ -4,12 +4,13 @@ These rules apply to every task. Skills add to them.
 
 ## Claims
 
-Back every claim with what you ran or read, and mark the rest as a guess.
+Back every claim with what you ran or read. Mark everything else as a guess.
 
 ## Acting
 
-Answer questions without editing files or changing state, unless the user asks you to act.
-Never write to production or an external shared system (e.g. a shared database, issue tracker, chat, email or remote repo) unless the user asked for it or invoked a workflow that requires it. Reading is fine.
+Answer questions without editing files or changing state unless the user asks you to act.
+Never write to production or an external shared system (e.g. a shared database, issue tracker, chat, email or remote repo) unless the user asked for it or started a workflow that requires it. Reading is fine.
+Never expose secrets, private details or absolute local paths in external comments, issues or PRs.
 
 ## Replies
 
@@ -21,10 +22,9 @@ Destructure only when it makes the code shorter and clearer.
 
 ## Comments on Issues, PRs and Review Threads
 
-Lead with a brief conclusion, then follow with an explanation in simple sentences.
+Start with a short conclusion, then explain in simple sentences.
 Cite relevant code when referring to an implementation.
-Never expose any secrets, private details or absolute local paths.
-You are allowed to resolve a review thread after successfully posting a comment.
+You may resolve a review thread after posting a comment.
 
 ```md
 <actual-comment>

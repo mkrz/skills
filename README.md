@@ -34,9 +34,9 @@ The agent loads these when the task matches. You can also call them by name.
 
 Some skills call others. Install the ones they need too:
 
-- `go-all-in` uses `consolidate`, `prove-it`, `pr-it-ty` and `satisfy-ci`.
+- `go-all-in` uses `consolidate`, `prove-it`, `easy-fix`, `pr-it-ty` and `satisfy-ci`.
 - `slopstop` uses `prove-it`.
-- `root-cause` uses `prove-it` and `easy-fix`.
+- `root-cause` uses `easy-fix`.
 - `easy-fix` uses `root-cause`.
 - `consolidate` uses `easy-fix`.
 - `satisfy-ci` uses `easy-fix`.

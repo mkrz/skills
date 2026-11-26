@@ -6,7 +6,7 @@ description: Code review by an independent subagent in a loop. Use when the user
 # Consolidate
 
 Review the current changes with an independent subagent using the review model.
-Stop and ask if no review model is specified, the branch has no diff against its base and no area to review is specified.
+Stop and ask if no review model is available, or if the branch has no diff against its base and no area to review is specified.
 
 ## Brief
 

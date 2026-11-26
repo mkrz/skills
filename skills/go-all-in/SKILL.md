@@ -1,39 +1,22 @@
 ---
 name: go-all-in
-description: Work on tasks until their PR is ready to merge. Use this skill if the user explicitly says "go all in".
+description: Use when the user explicitly says "go all in".
 ---
 
 # Go All In
 
-Work on the tasks the user gave you on your own until the PR is ready to merge.
-Always open a PR, even when bootstrapping a new app. If the repo has no remote yet, stop and ask the user where to push before creating one.
+Work through the user's tasks on your own until the PR is ready to merge. Never merge or deploy unless the user asked for it.
+Always open a PR, even for a new app. If the repo has no remote, stop and ask where to push first.
 
-When you work on something and hit a milestone or finish a task, commit it. Each commit holds one concern.
-Regularly use the `consolidate` skill to review milestones, or once at the end for a single granular task.
+Commit each finished task or milestone with one concern per commit.
+Use the `consolidate` skill on milestones, or once before the PR for a small task. Check that every user request is covered in the branch diff.
 
-Before the PR, run two checks in order:
+Before opening the PR, run the `prove-it` skill on every change to behavior or UI.
+If it returns `NOT PROVEN`, fix the failures with the `easy-fix` skill and run `prove-it` again (up to 2 fix rounds). If it still fails, stop and show the user what is left.
 
-- Spawn an independent agent with the user's original requests and the branch diff to list anything missing. Close any real gaps and review the new code with `consolidate`.
-- Run the `prove-it` skill on every change to behavior or UI. If the repo has no way to prove it yet, build one with `prove-it` as part of the work. Stop only if the app can't be driven at all, and say why.
+Create and push the PR using the `pr-it-ty` skill, then run the `satisfy-ci` skill.
+If `satisfy-ci` changes app behavior or UI (not just lint, types, tests or docs), run `prove-it` again on the touched flows. If that needs fixes, push them and run `satisfy-ci` once more; if that changes behavior or UI again, stop and tell the user what is left.
 
-After all tasks, reviews and checks are done, create a new PR using the `pr-it-ty` skill and push to it.
+Stop and tell the user what is left if any skill hits its limit or needs confirmation.
 
-Run the `satisfy-ci` skill. If it stops at its round limit, stop and tell the user what is left.
-If `satisfy-ci` changed app behavior or UI (not just lint, types, tests or docs), run `prove-it` again on the touched features. If `prove-it` requires fixes, push them and run `satisfy-ci` once more; if that run changes behavior or UI again, stop and tell the user what is left.
-
-Never merge or deploy unless the user asked for it. You are done when all of this is true:
-
-- Everything the user wanted is covered.
-- Every change to behavior or UI is proven after the latest behavior or UI edit.
-- All checks are green and `satisfy-ci` reports the PR ready.
-- Nothing is left open the user has to confirm.
-
-Otherwise stop and tell the user what is left.
-
-## Report
-
-End with where the work is and what ran:
-
-- The PR status lines from `pr-it-ty`.
-- Which skills ran.
-- Every cause that came up twice, so the user can run the `never-again` skill on it.
+End with the PR status lines from `pr-it-ty`, which skills ran and every cause raised twice for the `never-again` skill.

@@ -1,13 +1,13 @@
 ---
 name: suggest
-description: Use if the user writes "propose", "suggest", "suggestion", "challenge" or "improvements" and wants ideas or a challenge from you.
+description: Use when the user writes "propose", "suggest", "suggestion", "challenge" or "improvements" and wants ideas or a challenge.
 ---
 
-Read how the user wants to move forward on the topic they mentioned.
+# Suggest
 
-Your job is to give the user concrete improvements or a better idea that fits their goal.
+Read how the user wants to move forward on the topic, then propose concrete improvements or a better fit for their goal.
 
-If the user already gave you an idea, challenge it and propose either a:
+If the user already proposed an idea, challenge it and offer either:
 
-- totally different idea they did not mention, if you can prove yours is better
-- refined version of their idea where you clearly mention your improvements
+- a different idea they did not mention, if you can show why it is better
+- a refined version of their idea with clear improvements

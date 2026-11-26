@@ -1,41 +1,24 @@
 ---
 name: slopstop
-description: Rules that keep AI slop out of UI. Use when building, changing, or reviewing any interface.
+description: Use when building, changing or reviewing any UI.
 ---
 
 # Slopstop
 
-Apply every rule to each UI you touch.
+## Text and Case
 
-## Headings and Buttons
+Use Title Case for short UI labels (titles, sublines, buttons, links, tabs, menu items, form labels, table headers, badges and notifications). Keep short articles, conjunctions and prepositions lowercase unless first or last ("Sign In to Your Account", "Terms of Service").
 
-Use Title Case for short UI text: page and section titles, sublines, card and dialog titles, button and link labels, tabs, menu and dropdown items, form labels, table headers, badges, empty-state headings, and toast/notification titles.
-Keep articles, coordinating conjunctions, and short prepositions lowercase unless they start or end the phrase ("Sign In to Your Account", "Terms of Service").
+Use sentence case for body copy (paragraphs, descriptions, helper text, error messages and full sentences). Keep brand names, code identifiers and user data as written.
 
-Body copy stays in sentence case: paragraphs, descriptions, helper text, error messages, and any full sentence ending in a period. Don't change casing of brand names, code identifiers, or user data.
+Do not use small, letter-spaced, uppercase caplines.
 
-Leave out the small, letter-spaced, uppercase caplines.
+## Values and Forms
 
-## Values
+Write values so they read on their own beside what they describe ("3 open issues", "Paid on 12 March", "Synced 5 minutes ago"). Replace `Label: value` pairs, key-value grids and decorative pills with position, typography and grouping. Color and icons only reinforce the words. Multi-record tables keep their column headers.
 
-Write each value so it reads on its own, beside the thing it describes: "3 open issues", "Paid on 12 March", "Synced 5 minutes ago". This replaces `Label: value` pairs and badges or pills. Color and icons only reinforce the words. A table of records that share the same fields keeps its column headers.
-
-Don't put a single entity's properties into a key-value table or a grid of `Label: value` rows. Place each fact where the user naturally scans for it (title, key figure, timing, status) and let position, typography and grouping show what it means.
-
-## Adding Items
-
-Put multi-field "add" and "create" flows in a modal, or on a separate page when the form is large or multi-step.
-Don't bolt an inline dropdown and Add button onto a list or detail view. Keep inline entry only for rapid repeated items or single-field text composers (e.g. tags, line items or comments).
+Put multi-field create flows in a modal, or on a separate page if large or multi-step. Do not add an inline dropdown and Add button to a list or detail view; use inline entry only for rapid repeated items or single-field composers (e.g. tags, line items or comments).
 
 ## Verify
 
-Always use independent UI verification agents when changing parts of the UI or designing new UIs.
-Run the `prove-it` skill for that. Its agent walks every changed flow and takes the screenshots.
-
-Tell the verification agent to look for broken layout, clipped or overlapping text, a wrong state and any rule above that slipped.
-Have it check left and right edge alignment across sibling and stacked components (e.g. a pane header and the list below it) in the live DOM with `getBoundingClientRect()` instead of eyeballing screenshots.
-Allow up to 1px for subpixel rounding.
-Ignore intentionally centered blocks, such as centered empty states.
-Fix any reported offset in the main thread before calling the page done. Looking at your own change doesn't count, because you see what you meant to build.
-
-If `agent-browser` is missing, say the UI is unverified.
+Verify UI changes with the `prove-it` skill. Ask its subagent to check the rules above plus broken layout, clipped or overlapping text, wrong states and edge alignment. If it returns `NOT PROVEN`, fix the issues and run `prove-it` once more; if it still fails, stop and show the user.

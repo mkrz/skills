@@ -1,22 +1,24 @@
 ---
 name: easy-fix
-description: Use when fixing findings in a review loop, bot thread, CI or when the user asks for an "easy fix".
+description: Use when fixing findings from a review, bot thread, CI failure or when the user asks for an "easy fix".
 ---
 
 # Easy Fix
 
 Aim for the easiest correct fix: small and obvious to a reviewer.
 
-Unless you've already verified the finding yourself, confirm it's real by reproducing it or tracing the code path. If it isn't real, change nothing and say why in one line.
-If tracing doesn't find the cause, switch to the `root-cause` skill instead of guessing.
+Confirm the finding is real by reproducing it or tracing the code path, unless you already verified it. If it is not real, change nothing and say why in one line.
+If tracing does not find the cause, switch to the `root-cause` skill instead of guessing.
 
-Fix the cause, not the symptom. A guard is a fix only when the state it handles is legitimate; prefer a fix that deletes or narrows code over one that adds guards, flags or special cases.
-Check the rest of the diff (or the touched module when fixing an existing bug) for the same cause and fix those too. List any occurrences outside that scope instead of expanding it.
-Touch only what the fix needs and don't change behavior beyond it. No drive-by cleanups, renames or reformatting.
-A small local refactor is fine if it makes the fix simpler. If the correct fix needs more, like an interface change or a redesign, stop. Say what the root cause is and what the real fix would take, and don't patch around it.
+Apply these fix rules:
 
-Treat the fix as new code before calling it fixed:
+- Fix the cause, not the symptom. Add a guard only for legitimate states; prefer deleting or narrowing code over adding guards, flags or special cases.
+- Check the rest of the diff (or the touched module for an existing bug) for the same cause and fix those too. List occurrences outside that scope instead of expanding it.
+- Touch only what the fix needs. Make no drive-by cleanups, renames or reformatting.
+- A small local refactor is fine if it simplifies the fix. If the correct fix needs an interface change or redesign, stop, report the cause and required change, and do not patch around it.
 
-- Run the reproduction again after the fix when you have one. It must pass.
-- Never pass a check by weakening it.
+Before calling it fixed:
+
+- Run the reproduction again when you have one. It must pass.
+- Never weaken a check to make it pass.
 - Run lint, typecheck and the touched tests.
